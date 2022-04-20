@@ -65,7 +65,7 @@ const pizzaList = [
         type: "meat",
     }
 ];
-const order = [] 
+const order = []
 const showPizzaOnScreen = () => {
     const pizzaListElement = document.querySelector(".pizzaList");
     pizzaList.forEach(p => {
@@ -80,3 +80,44 @@ const showPizzaOnScreen = () => {
 }
 showPizzaOnScreen();
 
+let cart = {
+    "Веганская": {
+        "name": "Веганская",
+        "count": 0,
+    }
+};
+document.onclick = event => {
+    if (event.target.classList.contains('plus')) {
+        plusFunction(event.target.dataset.id);
+    }
+    if (event.target.classList.contains('minus')) {
+        minusFunction(event.target.dataset.id);
+    }
+}
+//увеличение колличетсва товара
+const plusFunction = id => {
+    cart[id]['count']++;
+    
+    renderCart();
+}
+//Уменьшение колличества товара 
+const minusFunction = id => {
+    if (cart[id]['count'] - 1 == 0) {
+        deleteFunction(id);
+        return true;
+    }
+    cart[id]['count']--;
+    renderCart();
+}
+//удаление товара
+const deleteFunction = id => {
+    delete cart[id];
+    renderCart();
+}
+
+
+const renderCart = () => {
+    console.log(cart)
+}
+
+renderCart();

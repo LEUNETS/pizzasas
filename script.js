@@ -65,42 +65,32 @@ const pizzaList = [
         type: "meat",
     }
 ];
-const order = []
-const showPizzaOnScreen = () => {
-    const pizzaListElement = document.querySelector(".pizzaList");
-    pizzaList.forEach(p => {
-        pizzaListElement.innerHTML += `<div class="pizza">
-     <img src="${p.img}" />
-     <p>${p.name}</p>
-     <p>${p.price} рублей</p>
-     <p>${p.ingredients}</p>
-     <button>Заказать</button>
- </div>`}
-    )
-}
-showPizzaOnScreen();
+
 
 let cart = {
-    "Веганская": {
+    'Веганская': {
         "name": "Веганская",
         "count": 0,
     }
 };
-document.onclick = event => {
+//Кнопка плюса
+button-primary-plus.onclick = event => {
     if (event.target.classList.contains('plus')) {
         plusFunction(event.target.dataset.id);
     }
+};
+//Функция плюса
+const plusFunction = id => {
+    cart[id]['count']++;
+    renderCart();
+};
+//Кнопка минуса
+button-primary-minus.onclick = event => {
     if (event.target.classList.contains('minus')) {
         minusFunction(event.target.dataset.id);
     }
-}
-//увеличение колличетсва товара
-const plusFunction = id => {
-    cart[id]['count']++;
-    
-    renderCart();
-}
-//Уменьшение колличества товара 
+};
+//Минусовая функция
 const minusFunction = id => {
     if (cart[id]['count'] - 1 == 0) {
         deleteFunction(id);
@@ -115,9 +105,39 @@ const deleteFunction = id => {
     renderCart();
 }
 
-
 const renderCart = () => {
     console.log(cart)
 }
 
 renderCart();
+
+const showPizzaOnScreen = () => {
+    const pizzaListElement = document.querySelector(".pizzaList");
+    pizzaList.forEach(p => {
+        pizzaListElement.innerHTML += `<div class="pizza">
+     <img src="${p.img}" />
+     <p>${p.name}</p>
+     <p>${p.price} рублей</p>
+     <p>${p.ingredients}</p>
+     <button>Заказать</button>
+</div>`}
+    )
+}
+showPizzaOnScreen();
+
+
+let cart = {
+    "Веганская": {
+        "name": "Веганская",
+        "count": 0,
+    }
+
+};
+document.onclick = event => {
+    if (event.target.classList.contains('plus')) {
+        plusFunction(event.target.dataset.id);
+    }
+    if (event.target.classList.contains('minus')) {
+        minusFunction(event.target.dataset.id);
+    }
+}

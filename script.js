@@ -66,78 +66,32 @@ const pizzaList = [
     }
 ];
 
-
-let cart = {
-    'Веганская': {
-        "name": "Веганская",
-        "count": 0,
-    }
-};
-//Кнопка плюса
-button-primary-plus.onclick = event => {
-    if (event.target.classList.contains('plus')) {
-        plusFunction(event.target.dataset.id);
-    }
-};
-//Функция плюса
-const plusFunction = id => {
-    cart[id]['count']++;
-    renderCart();
-};
-//Кнопка минуса
-button-primary-minus.onclick = event => {
-    if (event.target.classList.contains('minus')) {
-        minusFunction(event.target.dataset.id);
-    }
-};
-//Минусовая функция
-const minusFunction = id => {
-    if (cart[id]['count'] - 1 == 0) {
-        deleteFunction(id);
-        return true;
-    }
-    cart[id]['count']--;
-    renderCart();
+let cart = [];
+const addToCart = (index) => {
+    cart.push(pizzaList[index])
 }
-//удаление товара
-const deleteFunction = id => {
-    delete cart[id];
-    renderCart();
+const deleteFromCart = (index) => {
+    cart = cart.filter((v, i) => i !== index);
 }
 
-const renderCart = () => {
-    console.log(cart)
-}
-
-renderCart();
 
 const showPizzaOnScreen = () => {
     const pizzaListElement = document.querySelector(".pizzaList");
+    pizzaListElement.innerHTML = '';
     pizzaList.forEach(p => {
         pizzaListElement.innerHTML += `<div class="pizza">
      <img src="${p.img}" />
      <p>${p.name}</p>
      <p>${p.price} рублей</p>
      <p>${p.ingredients}</p>
-     <button>Заказать</button>
+    <button class="button-primary-plus">+</button>
+    <button class="button-primary-minus">-</button>
 </div>`}
     )
 }
 showPizzaOnScreen();
 
-
-let cart = {
-    "Веганская": {
-        "name": "Веганская",
-        "count": 0,
-    }
-
-};
-document.onclick = event => {
-    if (event.target.classList.contains('plus')) {
-        plusFunction(event.target.dataset.id);
-    }
-    if (event.target.classList.contains('minus')) {
-        minusFunction(event.target.dataset.id);
-    }
+const renderCart = () => {
+    console.log(cart)
 }
+renderCart();
